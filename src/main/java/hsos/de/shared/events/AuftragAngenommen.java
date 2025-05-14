@@ -1,4 +1,4 @@
-package hsos.de.flottenmanagement.events;
+package hsos.de.shared.events;
 
 public class AuftragAngenommen {
     public Long schiffsId;
