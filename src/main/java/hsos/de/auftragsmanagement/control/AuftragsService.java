@@ -1,8 +1,11 @@
 package hsos.de.auftragsmanagement.control;
 
 import hsos.de.auftragsmanagement.entity.Auftrag;
+import hsos.de.flottenmanagement.entity.Schiff;
+import hsos.de.shared.events.AuftragAngenommen;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -36,10 +39,19 @@ public class AuftragsService {
 
         existing.setBeschreibung(updated.getBeschreibung());
         existing.setEingangsdatum(updated.getEingangsdatum());
-        existing.setUrl(updated.getUrl());
 
         auftragEvent.fire(existing);
         return existing;
+    }
+
+    @Transactional
+    public void auftragAngenommen(@Observes AuftragAngenommen event) {
+        Auftrag auftrag = em.find(Auftrag.class, event.auftragsId);
+        if (auftrag == null) {
+            return;
+        }
+
+        auftrag.setUrl("/schiffe/" + event.schiffsId);
     }
 
     @Transactional
@@ -50,5 +62,4 @@ public class AuftragsService {
             auftragEvent.fire(auftrag);
         }
     }
-
 }
