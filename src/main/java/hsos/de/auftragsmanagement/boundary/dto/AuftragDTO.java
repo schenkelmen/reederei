@@ -2,14 +2,14 @@ package hsos.de.auftragsmanagement.boundary.dto;
 
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class AuftragDTO {
     @Schema(example = "Mast gebrochen")
-    public String auftragsbeschreibeibung;
+    public String beschreibung;
 
     @Schema(description = "Eingangsdatum des Auftrags", example = "12.03.2025")
-    public Date datum;
+    public LocalDate eingangsdatum;
 
     @Schema(example = "/schiffe/titanic")
     public String url;
