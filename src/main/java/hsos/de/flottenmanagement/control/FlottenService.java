@@ -1,6 +1,7 @@
 package hsos.de.flottenmanagement.control;
 
 import hsos.de.auftragsmanagement.entity.Auftrag;
+import hsos.de.events.AuftragAngenommen;
 import hsos.de.flottenmanagement.entity.Schiff;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
@@ -23,7 +24,7 @@ public class FlottenService {
     EntityManager em;
 
     @Inject
-    Event<Schiff> auftragAngenommenEvent;
+    Event<AuftragAngenommen> auftragAngenommenEvent;
 
     private final Queue<Long> wartendeAuftraege = new ConcurrentLinkedQueue<>();
 
@@ -36,8 +37,9 @@ public class FlottenService {
             if (auftragId != null) {
                 schiff.frei = false;
                 em.merge(schiff);
+                AuftragAngenommen event = new AuftragAngenommen(schiff.id, schiff.name, auftragId);
                 LOG.infof("🚀 Neues Schiff '%s' übernimmt wartenden Auftrag %d", schiff.name, auftragId);
-                auftragAngenommenEvent.fire(schiff);
+                auftragAngenommenEvent.fire(event);
             }
         }
 
@@ -63,8 +65,9 @@ public class FlottenService {
         Schiff s = freieSchiffe.get(0);
         s.frei = false;
         em.merge(s);
+        AuftragAngenommen event = new AuftragAngenommen(s.id, s.name, auftrag.id);
         LOG.infof("✅ Schiff '%s' (ID: %d) übernimmt Auftrag.", s.name, s.id);
-        auftragAngenommenEvent.fire(s);
+        auftragAngenommenEvent.fire(event);
     }
 
 }
