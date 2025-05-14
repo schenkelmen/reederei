@@ -2,7 +2,6 @@ package hsos.de.flottenmanagement.control;
 
 import hsos.de.auftragsmanagement.entity.Auftrag;
 import hsos.de.flottenmanagement.entity.Schiff;
-import hsos.de.shared.events.AuftragAngenommen;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
 import jakarta.enterprise.event.Observes;
