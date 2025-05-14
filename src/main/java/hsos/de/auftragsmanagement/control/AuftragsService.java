@@ -51,7 +51,7 @@ public class AuftragsService {
             return;
         }
 
-        auftrag.setUrl("/schiffe/" + event.schiffsId);
+        auftrag.setUrl("http://localhost:8081/schiffe/" + event.schiffsId);
     }
 
     @Transactional

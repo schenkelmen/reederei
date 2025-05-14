@@ -11,6 +11,6 @@ public class AuftragDTO {
     @Schema(description = "Eingangsdatum des Auftrags", example = "2025-03-12")
     public LocalDate eingangsdatum;
 
-    @Schema(example = "/schiffe/titanic")
+    @Schema(required = false)
     public String url;
 }
