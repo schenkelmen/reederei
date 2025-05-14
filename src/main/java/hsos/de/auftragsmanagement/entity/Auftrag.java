@@ -20,19 +20,19 @@ public class Auftrag{
         return id;
     }
 
-    public String getAuftragsbeschreibung() {
+    public String getBeschreibung() {
         return beschreibung;
     }
 
-    public void setAuftragsbeschreibung(String beschreibung) {
+    public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
     }
 
-    public LocalDate getDatum() {
+    public LocalDate getEingangsdatum() {
         return eingangsdatum;
     }
 
-    public void setDatum(LocalDate datum) {
+    public void setEingangsdatum(LocalDate datum) {
         this.eingangsdatum = datum;
     }
 

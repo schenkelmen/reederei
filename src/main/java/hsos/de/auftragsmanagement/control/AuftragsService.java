@@ -34,8 +34,8 @@ public class AuftragsService {
             throw new IllegalArgumentException("Auftrag mit ID " + id + " nicht gefunden.");
         }
 
-        existing.setAuftragsbeschreibung(updated.getAuftragsbeschreibung());
-        existing.setDatum(updated.getDatum());
+        existing.setBeschreibung(updated.getBeschreibung());
+        existing.setEingangsdatum(updated.getEingangsdatum());
         existing.setUrl(updated.getUrl());
 
         auftragEvent.fire(existing);
