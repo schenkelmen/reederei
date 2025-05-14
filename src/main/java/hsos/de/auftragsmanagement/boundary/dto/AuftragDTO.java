@@ -8,7 +8,7 @@ public class AuftragDTO {
     @Schema(example = "Mast gebrochen")
     public String beschreibung;
 
-    @Schema(description = "Eingangsdatum des Auftrags", example = "12.03.2025")
+    @Schema(description = "Eingangsdatum des Auftrags", example = "2025-03-12")
     public LocalDate eingangsdatum;
 
     @Schema(example = "/schiffe/titanic")
