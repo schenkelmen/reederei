@@ -1,6 +1,7 @@
 package hsos.de.flottenmanagement.control;
 
 import hsos.de.flottenmanagement.entity.Schiff;
+import hsos.de.flottenmanagement.events.AuftragAngenommen;
 import hsos.de.flottenmanagement.events.AuftragEingegangen;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Event;
@@ -18,7 +19,7 @@ public class FlottenService {
     EntityManager em;
 
     @Inject
-    Event<Schiff> auftragAngenommenEvent;
+    Event<AuftragAngenommen> auftragAngenommenEvent;
 
     @Transactional
     public Schiff schiffAnlegen(Schiff schiff) {
@@ -38,7 +39,9 @@ public class FlottenService {
         freieSchiffe.stream().findFirst().ifPresent(s -> {
             s.frei = false;
             em.merge(s);
-            auftragAngenommenEvent.fire(s);
+
+            AuftragAngenommen event = new AuftragAngenommen(s.id, s.name);
+            auftragAngenommenEvent.fire(event);
         });
     }
 }
