@@ -37,9 +37,8 @@ public class FlottenService {
             if (auftragId != null) {
                 schiff.frei = false;
                 em.merge(schiff);
-                AuftragAngenommen event = new AuftragAngenommen(schiff.id, schiff.name, auftragId);
                 LOG.infof("🚀 Neues Schiff '%s' übernimmt wartenden Auftrag %d", schiff.name, auftragId);
-                auftragAngenommenEvent.fire(event);
+                auftragAngenommenEvent.fire(schiff);
             }
         }
 
