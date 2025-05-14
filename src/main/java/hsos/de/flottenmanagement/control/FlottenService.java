@@ -24,7 +24,7 @@ public class FlottenService {
     EntityManager em;
 
     @Inject
-    Event<AuftragAngenommen> auftragAngenommenEvent;
+    Event<Schiff> auftragAngenommenEvent;
 
     private final Queue<Long> wartendeAuftraege = new ConcurrentLinkedQueue<>();
 
@@ -65,10 +65,8 @@ public class FlottenService {
         Schiff s = freieSchiffe.get(0);
         s.frei = false;
         em.merge(s);
-
-        AuftragAngenommen event = new AuftragAngenommen(s.id, s.name, auftrag.id);
         LOG.infof("✅ Schiff '%s' (ID: %d) übernimmt Auftrag.", s.name, s.id);
-        auftragAngenommenEvent.fire(event);
+        auftragAngenommenEvent.fire(s);
     }
 
 }
