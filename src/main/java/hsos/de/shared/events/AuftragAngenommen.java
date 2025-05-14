@@ -1,4 +1,4 @@
-package hsos.de.events;
+package hsos.de.shared.events;
 
 public class AuftragAngenommen {
     public Long schiffsId;
