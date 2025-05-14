@@ -17,7 +17,7 @@ public class AuftragResource {
     AuftragsService service;
 
     @POST
-    public Response create(AuftragDTO dto) {
+    public Response erstelleAuftrag(AuftragDTO dto) {
         Auftrag auftrag = new Auftrag();
 
         auftrag.beschreibung = dto.beschreibung;
@@ -30,7 +30,7 @@ public class AuftragResource {
 
     @GET
     @Path("/{id}")
-    public Response get(@PathParam("id") Long id) {
+    public Response holAuftragNachId(@PathParam("id") Long id) {
         Auftrag auftrag = service.getAuftrag(id);
         if (auftrag == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -40,7 +40,7 @@ public class AuftragResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, Auftrag updated) {
+    public Response updateAuftrag(@PathParam("id") Long id, Auftrag updated) {
         try {
             Auftrag auftrag = service.auftragAktualisieren(id, updated);
             return Response.ok(auftrag).build();
@@ -51,7 +51,7 @@ public class AuftragResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response loescheAuftrag(@PathParam("id") Long id) {
         service.auftragLoeschen(id);
         return Response.noContent().build();
     }
