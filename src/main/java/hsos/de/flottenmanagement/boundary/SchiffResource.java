@@ -1,5 +1,6 @@
 package hsos.de.flottenmanagement.boundary;
 
+import hsos.de.flottenmanagement.boundary.dto.NeuSchiffDTO;
 import hsos.de.flottenmanagement.control.FlottenService;
 import hsos.de.flottenmanagement.entity.Schiff;
 import jakarta.inject.Inject;
@@ -16,8 +17,13 @@ public class SchiffResource {
     FlottenService service;
 
     @POST
-    public Response neuesSchiff(Schiff schiff) {
-        return Response.ok(service.schiffAnlegen(schiff)).build();
+    public Response neuesSchiff(NeuSchiffDTO dto) {
+        Schiff schiff = new Schiff();
+        schiff.name = dto.name;
+        schiff.frei = dto.frei;
+
+        Schiff gespeichert = service.schiffAnlegen(schiff);
+        return Response.status(Response.Status.CREATED).entity(gespeichert).build();
     }
 
     @GET
