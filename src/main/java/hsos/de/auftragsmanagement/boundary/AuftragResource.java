@@ -1,5 +1,6 @@
 package hsos.de.auftragsmanagement.boundary;
 
+import hsos.de.auftragsmanagement.boundary.dto.AuftragDTO;
 import hsos.de.auftragsmanagement.control.AuftragsService;
 import hsos.de.auftragsmanagement.entity.Auftrag;
 import jakarta.inject.Inject;
@@ -16,7 +17,13 @@ public class AuftragResource {
     AuftragsService service;
 
     @POST
-    public Response create(Auftrag auftrag) {
+    public Response create(AuftragDTO dto) {
+        Auftrag auftrag = new Auftrag();
+
+        auftrag.beschreibung = dto.beschreibung;
+        auftrag.eingangsdatum = dto.eingangsdatum;
+        auftrag.url = dto.url;
+
         Auftrag created = service.auftragErstellen(auftrag);
         return Response.status(Response.Status.CREATED).entity(created).build();
     }
