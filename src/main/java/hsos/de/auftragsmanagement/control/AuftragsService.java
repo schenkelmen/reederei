@@ -1,6 +1,7 @@
 package hsos.de.auftragsmanagement.control;
 
 import hsos.de.auftragsmanagement.entity.Auftrag;
+import hsos.de.flottenmanagement.control.FlottenService;
 import hsos.de.flottenmanagement.entity.Schiff;
 import hsos.de.shared.events.AuftragAngenommen;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -9,9 +10,11 @@ import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class AuftragsService {
+    private static final Logger LOG = Logger.getLogger(AuftragsService.class);
 
     @Inject
     EntityManager em;
@@ -46,6 +49,7 @@ public class AuftragsService {
 
     @Transactional
     public void auftragAngenommen(@Observes AuftragAngenommen event) {
+        LOG.info("📩 Auftrag angenommen: für Auftrag:" + event.auftragsId + "; für Schiff: " + event.schiffsId);
         Auftrag auftrag = em.find(Auftrag.class, event.auftragsId);
         if (auftrag == null) {
             return;
